@@ -884,7 +884,6 @@
                border-bottom:1px solid var(--rule); padding-bottom:3px; cursor:pointer;
                transition:color .18s var(--ease), border-color .18s var(--ease); }
   .slab__more:hover{ color:var(--accent-text); border-color:var(--accent-text); }
-  .foot a[data-go]{ cursor:pointer; }
 
   /* ---- sub-service landing pages ---- */
   .has-ghost{ position:relative; overflow:hidden; }
@@ -1051,14 +1050,36 @@
   .foot__base{ margin-top:clamp(30px,4vw,48px); padding-top:18px; border-top:1px solid rgba(239,237,228,.15); display:flex; flex-wrap:wrap; gap:8px 24px; }
   .foot__base p{ font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:#8C877A; }
 
-  .note{ border:1px solid rgba(138,92,19,.34); background:rgba(198,148,31,.09); padding:clamp(18px,2.2vw,28px); }
-  .note p{ margin:0; font-size:13.5px; font-weight:300; color:var(--fg-2); max-width:84ch; }
-  .note p + p{ margin-top:9px; }
-
   .dock{ position:fixed; left:0; right:0; bottom:0; z-index:70; display:none; background:rgba(245,243,236,.96);
          backdrop-filter:blur(12px); border-top:1px solid rgba(19,19,19,.14);
          padding:10px var(--gut); padding-bottom:calc(10px + env(safe-area-inset-bottom,0px)); }
   .dock .btn{ width:100%; }
   @media (max-width:960px){ .dock{ display:block; } .foot{ padding-bottom:84px; } }
+
+  /* One URL per page: links that used to be script targets, the skip link, and the move between pages */
+  @media (prefers-reduced-motion:no-preference){ @view-transition{ navigation:auto; } }
+  .skip{ position:absolute; left:12px; top:-64px; z-index:100; background:var(--ink); color:#EFEDE4; padding:11px 16px;
+         font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; }
+  .skip:focus{ top:12px; }
+  .row, .sym__r, .caseNav a, .svcNav a, .crumb a, .cons__out a{ text-decoration:none; }
+  .slab[data-href]{ cursor:pointer; }
+  .vent__panel[hidden]{ display:none; }
+
+  /* The enquiry form */
+  .form{ display:grid; gap:18px; }
+  .form__row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:620px){ .form__row{ grid-template-columns:1fr; } }
+  .field{ display:grid; gap:7px; }
+  .field > span{ font-size:10.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--fg-3); }
+  .field > span i{ font-style:normal; font-weight:500; letter-spacing:.08em; text-transform:none; margin-left:6px; }
+  .field input, .field textarea{ width:100%; font:inherit; font-size:16px; font-weight:400; color:var(--fg); background:var(--panel);
+         border:1px solid var(--rule); border-radius:0; padding:13px 14px; transition:border-color .2s var(--ease); }
+  .field textarea{ resize:vertical; min-height:136px; line-height:1.55; }
+  .field input:focus, .field textarea:focus{ border-color:var(--accent-text); }
+  .field input::placeholder, .field textarea::placeholder{ color:var(--fg-3); }
+  .form__hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .form button.btn{ cursor:pointer; }
+  .direct a{ text-decoration:none; }
+  .direct a:hover{ color:var(--accent-text); }
 
   @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }

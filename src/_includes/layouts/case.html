@@ -1,0 +1,50 @@
+---
+layout: layouts/base.html
+schemaType: case
+---
+{%- set n = collections.cases | neighbours(page.url) -%}
+<div class="page is-here" id="p-work-{{ key }}">
+<section class="band band--paper"><div class="wrap">
+  <div class="split"><div class="caseHead">
+    {%- if logo %}
+    <img class="caseHead__logo" src="{{ logo }}" alt="{{ name }}">
+    {%- else %}
+    <h2 class="d2">{{ name }}</h2>
+    {%- endif %}
+    <p class="meta">{{ sector }}</p>
+    <div class="caseTags">
+      {%- for t in ["brand", "web", "growth"] %}<span class="{{ 'on' if t in disciplines }}">{{ t }}</span>{% endfor -%}
+      {%- if live %}<span class="on">Live</span>{% endif -%}
+    </div>
+    <div class="caseSw">{% for x in palette %}<i style="background:{{ x }}"></i>{% endfor %}</div>
+    <p class="tiny">{{ paletteNote }}</p>
+  </div>
+  <div class="stack"><h1 class="d2">{{ lead | safe }}</h1>
+    {%- for p in body %}
+    <p class="body">{{ p | safe }}</p>
+    {%- endfor %}
+  </div></div>
+
+  {% caseStory key, name, palette, story, marks %}
+
+  {%- if shipped.length %}
+  <div class="ship"><h3>What shipped.</h3><div class="ship__list">
+    {%- for r in shipped %}<div class="ship__row"><b>{{ r.label }}</b><span>{{ r.text }}</span></div>{% endfor -%}
+  </div></div>
+  {%- endif %}
+
+  <div class="shots">
+    {%- set odd = shots.length % 2 == 1 %}
+    {%- for s in shots %}
+    {%- set cls = ("wide " if (odd and loop.first) else "") + (s.size or "") %}
+    <figure{% if cls | trim %} class="{{ cls | trim }}"{% endif %}><img src="{{ s.img }}" alt="{{ s.caption }}, {{ name }}" loading="lazy"><figcaption>{{ s.caption }}</figcaption></figure>
+    {%- endfor %}
+  </div>
+  <nav class="caseNav" aria-label="More work">
+    <a href="{{ n.prev.url }}">&#8592; {{ n.prev.data.name }}</a>
+    <a href="/work/">All work</a>
+    <a href="{{ n.next.url }}">{{ n.next.data.name }} &#8594;</a>
+  </nav>
+  <div class="btns" style="margin-top:28px"><a class="btn btn--solid" href="/contact/">Start a project like this</a></div>
+</div></section>
+</div>

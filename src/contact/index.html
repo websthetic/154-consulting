@@ -1,0 +1,42 @@
+---
+title: Book a 20 minute call | 154 Consulting
+description: Book a 20 minute call with 154 Consulting. No deck, and nothing is sold on the call. You will leave knowing what the work takes.
+permalink: /contact/
+schemaType: contact
+---
+<div class="page is-here" id="p-contact">
+    <section class="band band--paper">
+      <div class="wrap split">
+        <h1 class="d1">Let's build.</h1>
+        <div class="stack">
+          <p class="body">Twenty minutes, no pitch. Tell me what's going on and we'll work out whether it's a brand problem, a web problem or a growth problem. If it's none of those, I'll say so.</p>
+          <div class="picked" id="picked" hidden>
+            <p class="tray__hd">What you picked</p>
+            <div class="tray__items" id="pickedItems"></div>
+          </div>
+
+          <form class="form" name="contact" method="POST" action="/contact/thanks/" data-netlify="true" netlify-honeypot="website">
+            <input type="hidden" name="form-name" value="contact">
+            <input type="hidden" name="picked" id="fPicked">
+            <input type="hidden" name="where-to-start" id="fStart">
+            <p class="form__hp" aria-hidden="true"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
+            <div class="form__row">
+              <label class="field"><span>Your name</span><input name="name" autocomplete="name" required></label>
+              <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
+            </div>
+            <div class="form__row">
+              <label class="field"><span>Business <i>optional</i></span><input name="business" autocomplete="organization"></label>
+              <label class="field"><span>Phone <i>optional</i></span><input type="tel" name="phone" autocomplete="tel"></label>
+            </div>
+            <label class="field"><span>What's going on?</span><textarea name="message" rows="5" required placeholder="A sentence or two is plenty."></textarea></label>
+            <div class="btns">
+              <button class="btn btn--solid" type="submit">Send it</button>
+              <a class="btn btn--ghost" href="/where-to-start/">Work out where to start first</a>
+            </div>
+          </form>
+
+          <p class="body direct"><strong><a href="mailto:{{ client.email }}">{{ client.email }}</a></strong><br><a href="tel:{{ client.phoneForTel }}">{{ client.phoneFormatted }}</a><br>{{ client.address.lineOne }}, {{ client.address.city }}, Ontario<br><a href="{{ client.socials.instagram }}">@154Consulting</a></p>
+        </div>
+      </div>
+    </section>
+</div>

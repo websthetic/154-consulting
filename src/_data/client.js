@@ -3,7 +3,7 @@ module.exports = {
     legalName: "15413133 Canada Inc.",
     email: "hello@154consulting.ca",
     phoneForTel: "+1-647-228-1284",
-    phoneFormatted: "(647) 228-1284",
+    phoneFormatted: "647-228-1284",
     address: {
         lineOne: "2290 Dixie Road",
         city: "Mississauga",

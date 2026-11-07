@@ -1,0 +1,12 @@
+{%- for v in ventures %}
+          <div class="vent__panel" id="vent-{{ loop.index0 }}" role="tabpanel"{% if not loop.first %} hidden{% endif %}>
+            <div class="vent__media"><img src="{{ v.img }}" alt="{{ v.name }}" loading="lazy"></div>
+            <div class="vent__body">
+              <h3>{{ v.name }}</h3>
+              <p class="vent__when">{{ v.when }}</p>
+              <p>{{ v.text | safe }}</p>
+              <div class="vent__took"><em>What it taught him</em><b>{{ v.lesson | safe }}</b></div>
+              <a class="vent__tie" href="/services/{{ v.pillar | lower }}/">See what {{ v.pillar }} covers &#8594;</a>
+            </div>
+          </div>
+{%- endfor %}

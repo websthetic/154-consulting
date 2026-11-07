@@ -20,6 +20,7 @@ const javascript = require("./src/config/processors/javascript");
 // 🛠️ Utilities
 const filterPostDate = require("./src/config/filters/postDate");
 const filterIsoDate = require("./src/config/filters/isoDate");
+const caseStory = require("./src/config/shortcodes/caseStory");
 const isProduction = process.env.ELEVENTY_ENV === "PROD";
 
 module.exports = function (eleventyConfig) {
@@ -74,7 +75,8 @@ module.exports = function (eleventyConfig) {
     // Learn more: https://www.11ty.dev/docs/copy/
     // ═════════════════════════════════════════════════════════════════════════
 
-    eleventyConfig.addPassthroughCopy("./src/assets"); // Static assets
+    eleventyConfig.addPassthroughCopy("./src/assets/images"); // Images (CSS and JS are compiled separately)
+    eleventyConfig.addPassthroughCopy("./src/assets/favicons"); // Favicons and manifest
     eleventyConfig.addPassthroughCopy("./src/_redirects"); // Redirect rules
 
     // ═════════════════════════════════════════════════════════════════════════
@@ -99,6 +101,38 @@ module.exports = function (eleventyConfig) {
      */
     eleventyConfig.addFilter("isoDate", filterIsoDate);
 
+    /*
+     * ⬅️➡️ Previous and next in a collection, wrapping at either end
+     * Usage: {% set n = collections.cases | neighbours(page.url) %}
+     */
+    eleventyConfig.addFilter("neighbours", (list, url) => {
+        const i = list.findIndex((p) => p.url === url);
+        return { prev: list[(i - 1 + list.length) % list.length], next: list[(i + 1) % list.length] };
+    });
+
+    /*
+     * 🔎 First item in a collection whose data matches
+     * Usage: {% set parent = collections.pillars | findBy("key", pillar) %}
+     */
+    eleventyConfig.addFilter("findBy", (list, key, value) => list.find((p) => p.data[key] === value));
+
+    // ═════════════════════════════════════════════════════════════════════════
+    // COLLECTIONS
+    // Case studies and services, in the order set by each file's `order`
+    // ═════════════════════════════════════════════════════════════════════════
+
+    const byOrder = (a, b) => a.data.order - b.data.order;
+    eleventyConfig.addCollection("cases", (api) => api.getFilteredByGlob("./src/work/*.md").sort(byOrder));
+    eleventyConfig.addCollection("pillars", (api) =>
+        api.getFilteredByGlob("./src/services/*.md").filter((p) => p.data.kind === "pillar").sort(byOrder)
+    );
+    eleventyConfig.addCollection("services", (api) =>
+        api.getFilteredByGlob("./src/services/*.md").filter((p) => p.data.kind === "service").sort(byOrder)
+    );
+
+    // Every page uses the base layout unless it says otherwise
+    eleventyConfig.addGlobalData("layout", "layouts/base.html");
+
     // ═════════════════════════════════════════════════════════════════════════
     // SHORTCODES
     // Generate dynamic content with JavaScript
@@ -112,6 +146,12 @@ module.exports = function (eleventyConfig) {
      * Updates automatically with each build
      */
     eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
+    /*
+     * 🖋️ Case study scene: the mark set out, traced, filled, then shown in its system
+     * Usage: {% caseStory key, name, palette, story, marks %}
+     */
+    eleventyConfig.addShortcode("caseStory", caseStory);
 
     // ═════════════════════════════════════════════════════════════════════════
     // BUILD CONFIGURATION

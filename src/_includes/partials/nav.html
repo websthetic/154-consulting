@@ -1,0 +1,18 @@
+{%- set links = [["/work/", "Work"], ["/services/", "Services"], ["/process/", "Process"], ["/where-to-start/", "Where to start"], ["/about/", "About"], ["/faq/", "FAQ"]] -%}
+{%- macro navlinks() -%}
+  {%- for l in links %}
+    <a class="navlink{% if page.url.indexOf(l[0]) == 0 %} is-here{% endif %}" href="{{ l[0] }}"{% if page.url == l[0] %} aria-current="page"{% endif %}>{{ l[1] }}</a>
+  {%- endfor %}
+{%- endmacro -%}
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="nav__in">
+    <a class="brandlink" href="/" aria-label="154 Consulting, home"><img src="/assets/images/site/logo-nav.webp" alt="one.five.four" width="560" height="73"></a>
+    <div class="nav__links">{{ navlinks() }}
+    </div>
+    <a class="btn btn--solid btn--sm nav__cta" href="/contact/">Book a call</a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="menu" id="menu">{{ navlinks() }}
+    <a class="btn btn--solid btn--sm" href="/contact/" style="margin-top:12px">Book a call</a>
+  </div>
+</nav>

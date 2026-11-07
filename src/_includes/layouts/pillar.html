@@ -1,0 +1,82 @@
+---
+layout: layouts/base.html
+schemaType: service
+---
+{%- set n = collections.pillars | neighbours(page.url) -%}
+{%- set lead = own.shots[own.lead] -%}
+<div class="page is-here" id="p-svc-{{ key }}">
+
+<section class="band band--{{ band }}"><div class="wrap">
+  <div class="pHero">
+    <i class="pHero__no">{{ no }}</i>
+    <span class="pHero__name">{{ name }}</span>
+    <div class="pHero__grid">
+      <h1>{{ heading | safe }}</h1>
+      <div class="pHero__side">
+        <p>{{ intro | safe }}</p>
+        <div class="btns"><a class="btn btn--solid" href="/contact/">Book a 20 minute call</a>
+        <a class="btn btn--ghost" href="/where-to-start/">Not sure where to start?</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="pWins">
+    {%- for f in fixes %}<div><b>{{ f.title }}</b><span>{{ f.text }}</span></div>{% endfor -%}
+  </div>
+</div></section>
+
+<section class="band band--paper"><div class="wrap">
+  <div class="split"><h2 class="d2">We did it to<br>ourselves first.</h2>
+    <p class="body">{{ own.note | safe }}</p></div>
+  <figure class="bleed"><img src="{{ lead.img }}" alt="{{ lead.title }}, {{ lead.text }}" loading="lazy">
+    <figcaption><b>{{ lead.title }}</b><span>{{ lead.text }}</span></figcaption></figure>
+  <div class="trio">
+    {%- for e in own.shots %}{% if loop.index0 != own.lead %}
+    <figure class="{{ e.size or 'mid' }}"><img src="{{ e.img }}" alt="{{ e.title }}, {{ e.text }}" loading="lazy"><figcaption><b>{{ e.title }}</b><span>{{ e.text }}</span></figcaption></figure>
+    {%- endif %}{% endfor %}
+  </div>
+  {%- if key == "growth" %}{% include "partials/ad-mocks.html" %}{% endif %}
+</div></section>
+
+<section class="band band--bone"><div class="wrap">
+  <div class="split"><h2 class="d2">Everything<br>you get.</h2>
+    <p class="body">Handed over and yours to keep. Nothing is held back as leverage for a retainer.</p></div>
+  <div class="idx">
+    {%- for g in gets %}<div class="idx__r"><i class="idx__n">0{{ loop.index }}</i><b>{{ g.title }}</b><span>{{ g.text }}</span></div>{% endfor -%}
+  </div>
+  <div class="qa">
+    {%- for x in questions %}<div class="qa__r"><b>{{ x.q }}</b><span>{{ x.a }}</span></div>{% endfor -%}
+  </div>
+</div></section>
+
+<section class="band band--ink band--tight"><div class="wrap">
+  <div class="skipb">
+    <span class="skipb__k">What happens if you skip it</span>
+    <p><b>Skip it</b>{{ skip | safe }}</p>
+  </div>
+</div></section>
+
+<section class="band band--paper"><div class="wrap">
+  <div class="split"><h2 class="d2">Then for<br>clients.</h2>
+    <p class="body">All of it shipped. The colours came out of each client's delivered kit.</p></div>
+  <div class="wrail">
+    {%- for e in examples %}<figure><img src="{{ e.img }}" alt="{{ e.client }}, {{ e.text }}" loading="lazy"><figcaption>{{ e.client }} &#183; {{ e.text }}</figcaption></figure>{% endfor -%}
+  </div>
+  <p class="railNote">Drag sideways for the rest.</p>
+  <div class="btns" style="margin-top:clamp(20px,2.6vw,34px)">
+    <a class="btn btn--ghost" href="/work/">See the full portfolio</a></div>
+</div></section>
+
+<section class="band band--green band--tight"><div class="wrap">
+  <div class="split"><h2 class="d2">Start with {{ name | lower }}.</h2>
+    <div class="stack"><p class="body">Twenty minutes. No deck, nothing sold on the call. You'll leave knowing what it takes and roughly what it costs.</p>
+      <div class="btns"><a class="btn btn--solid" href="/contact/">Book a 20 minute call</a>
+      <a class="btn btn--ghost" href="/process/">What happens after you say yes</a></div>
+    </div></div>
+  <nav class="svcNav" aria-label="More services">
+    <a href="{{ n.prev.url }}">&#8592; {{ n.prev.data.name }}</a>
+    <a href="/services/">All services</a>
+    <a href="{{ n.next.url }}">{{ n.next.data.name }} &#8594;</a>
+  </nav>
+</div></section>
+
+</div>

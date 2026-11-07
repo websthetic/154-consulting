@@ -1,0 +1,15 @@
+{%- for c in collections.cases %}
+          <a class="row" href="{{ c.url }}">
+            <span class="row__txt">
+              <span class="row__name">{{ c.data.name }}</span>
+              <span class="row__meta">{{ c.data.sector }}{% if c.data.live %} &#183; Live{% endif %}</span>
+              <span class="row__line">{{ c.data.line }}</span>
+              <span class="row__foot"><span class="row__tags">
+                {%- for t in ["brand", "web", "growth"] %}<i class="{{ 'on' if t in c.data.disciplines }}">{{ t }}</i>{% endfor -%}
+              </span><span class="row__sw">
+                {%- for x in c.data.palette | batch(5) | first %}<i style="background:{{ x }}"></i>{% endfor -%}
+              </span></span>
+            </span>
+            <span class="row__shot"><img src="{{ c.data.cover }}" alt="{{ c.data.name }}" loading="lazy"><span class="row__go">See the work</span></span>
+          </a>
+{%- endfor %}

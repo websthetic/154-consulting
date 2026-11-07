@@ -1,0 +1,45 @@
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <img class="foot__lock" src="/assets/images/site/foot-lock.webp" alt="154 Consulting, before the brand." width="760" height="439" loading="lazy">
+        <p style="max-width:30ch">Zero to launched. We've got every step in between.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/services/brand-identity/">Brand identity</a></li>
+          <li><a href="/services/website-design/">Website design and build</a></li>
+          <li><a href="/services/website-design/">AI and automation</a></li>
+          <li><a href="/services/seo/">SEO</a></li>
+          <li><a href="/services/social-media/">Social media</a></li>
+          <li><a href="/services/paid-media/">Paid media</a></li>
+          <li><a href="/services/business-consulting/">Business consulting</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="/work/">Work</a></li>
+          <li><a href="/process/">Process</a></li>
+          <li><a href="/where-to-start/">Where to start</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:{{ client.email }}">{{ client.email }}</a></li>
+          <li><a href="tel:{{ client.phoneForTel }}">{{ client.phoneFormatted }}</a></li>
+          <li>{{ client.address.lineOne }}, {{ client.address.city }}, Ontario</li>
+          <li><a href="{{ client.socials.instagram }}" rel="me">@154Consulting</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <p>{{ client.name }} &#183; {{ client.legalName }}</p>
+      <p>Serving clients across Ontario</p>
+    </div>
+  </div>
+</footer>

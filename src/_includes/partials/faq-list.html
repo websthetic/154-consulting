@@ -1,0 +1,4 @@
+{%- for f in faq %}
+          <details{% if loop.first %} open{% endif %}><summary>{{ f.q | safe }}</summary>
+            <p>{{ f.a | safe }}</p></details>
+{%- endfor %}

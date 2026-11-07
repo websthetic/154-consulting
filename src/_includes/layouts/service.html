@@ -1,0 +1,78 @@
+---
+layout: layouts/base.html
+schemaType: service
+---
+{%- set parent = collections.pillars | findBy("key", pillar) -%}
+<div class="page is-here" id="p-{{ key }}">
+<section class="band band--{{ band }}"><div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/">154</a><i>&#8250;</i><a href="/services/">Services</a>
+    {%- if parent %}<i>&#8250;</i><a href="{{ parent.url }}">{{ parent.data.name }}</a>{% endif -%}
+  </nav>
+  <div class="subHero">
+    <h1>{{ heading | safe }}</h1>
+    <div class="stack"><p class="body">{{ intro | safe }}</p>
+      <div class="btns"><a class="btn btn--solid" href="/contact/">Book a 20 minute call</a>
+      <a class="btn btn--ghost" href="/where-to-start/">Not sure where to start?</a></div>
+    </div>
+    <div class="subKeys">{% for g in gets %}<span>{{ g.title }}</span>{% endfor %}</div>
+  </div>
+</div></section>
+
+<section class="band band--paper band--tight"><div class="wrap">
+  <div class="mod">
+    <h2 class="d2" style="max-width:20ch">{{ moduleHeading | safe }}</h2>
+    <div class="mod__bar" data-bar="{{ key }}"></div>
+    <div class="mod__stage" data-mod="{{ module }}" data-k="{{ key }}"></div>
+    <p class="mod__note">{{ moduleNote | safe }}</p>
+  </div>
+</div></section>
+
+<section class="band band--bone has-ghost">
+  <span class="ghost" aria-hidden="true">{{ ghost }}</span>
+  <div class="wrap">
+    <h2 class="d2" style="max-width:17ch">{{ explainer.heading | safe }}</h2>
+    <div class="edu3">
+      {%- for t in explainer.paragraphs %}<div><i>0{{ loop.index }}</i><p>{{ t | safe }}</p></div>{% endfor -%}
+    </div>
+    <div class="gloss">
+      {%- for t in explainer.glossary %}<div><b>{{ t.term }}</b><span>{{ t.definition | safe }}</span></div>{% endfor -%}
+    </div>
+  </div>
+</section>
+
+<section class="band band--paper"><div class="wrap">
+  <div class="split"><h2 class="d2">Work that<br>came out of it.</h2>
+    <p class="body">All of it shipped, and every colour came out of the kit we handed over.</p></div>
+  <div class="shots">
+    {%- for e in examples %}<figure><img src="{{ e.img }}" alt="{{ e.client }}, {{ e.text }}" loading="lazy"><figcaption>{{ e.client }} &#183; {{ e.text }}</figcaption></figure>{% endfor -%}
+  </div>
+  <div class="btns" style="margin-top:clamp(24px,3vw,40px)">
+    <a class="btn btn--ghost" href="/work/">See the full portfolio</a></div>
+</div></section>
+
+<section class="band band--bone"><div class="wrap">
+  <div class="split"><h2 class="d2">{{ auditHeading | safe }}</h2>
+    <p class="body">Tick off whatever you already have. Whatever is left is the job.</p></div>
+  <div class="aud" data-aud="{{ key }}">
+    {%- for g in gets %}
+    <button type="button" class="aud__row" data-i="{{ loop.index0 }}" aria-pressed="false"><span class="aud__box" aria-hidden="true"></span><span class="aud__name">{{ g.title }}</span><span class="aud__gap">{{ g.text }}</span></button>
+    {%- endfor %}
+  </div>
+  <div class="aud__sum" data-sum="{{ key }}"></div>
+</div></section>
+
+<section class="band band--paper"><div class="wrap">
+  <div class="split"><h2 class="d2">Questions<br>people ask.</h2>
+    <p class="body">Answered the way they get answered on the call.</p></div>
+  <div class="faq">{% include "partials/faq-list.html" %}</div>
+</div></section>
+
+<section class="band band--ink band--tight"><div class="wrap">
+  <div class="split"><h2 class="d2">Talk it through.</h2>
+    <div class="stack"><p class="body">Twenty minutes. No deck, nothing sold on the call. You will know what it takes and roughly what it costs.</p>
+      <div class="btns"><a class="btn btn--solid" href="/contact/">Book a call</a>
+      {%- if parent %}<a class="btn btn--ghost" href="{{ parent.url }}">All of {{ parent.data.name | lower }}</a>
+      {%- else %}<a class="btn btn--ghost" href="/services/">All services</a>{% endif %}
+    </div></div></div>
+</div></section>
+</div>

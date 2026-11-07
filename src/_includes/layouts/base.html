@@ -1,18 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
 <meta name="description" content="{{ description }}">
 <meta name="theme-color" content="#F5F3EC">
 <link rel="canonical" href="{{ client.domain }}{{ page.url }}">
+{%- if noindex %}
+<meta name="robots" content="noindex">
+{%- endif %}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{ client.name }}">
+<meta property="og:locale" content="en_CA">
 <meta property="og:title" content="{{ ogTitle or title }}">
 <meta property="og:description" content="{{ ogDescription or description }}">
 <meta property="og:url" content="{{ client.domain }}{{ page.url }}">
+<meta property="og:image" content="{{ client.domain }}{{ ogImage or cover or '/assets/images/site/s-home.webp' }}">
 <meta name="twitter:card" content="summary_large_image">
-<title>{{ title }}</title>
 
 <link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png" sizes="96x96">
 <link rel="icon" type="image/svg+xml" href="/assets/favicons/favicon.svg">
@@ -24,18 +29,32 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/css/site.css">
-
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"{{ client.name }}","legalName":"{{ client.legalName }}",
-"url":"{{ client.domain }}","email":"{{ client.email }}","telephone":"{{ client.phoneForTel }}",
-"description":"Brand, web and growth studio for service businesses across Ontario. Identity to launch, one team, no handoffs.",
-"address":{"@type":"PostalAddress","streetAddress":"{{ client.address.lineOne }}","addressLocality":"{{ client.address.city }}","addressRegion":"{{ client.address.state }}","addressCountry":"{{ client.address.country }}"},
-"areaServed":{"@type":"State","name":"Ontario"},"founder":{"@type":"Person","name":"Justice Okeke"},
-"sameAs":["{{ client.socials.instagram }}"]}
+{%- if page.url == "/" %}
+<script>
+  // The concept was one page with #hash views. Send old links to their real URLs.
+  (function(){
+    var h = location.hash.slice(1), map = {{ legacyHashes | dump | safe }};
+    if (map[h]) location.replace(map[h]);
+  })();
 </script>
+{%- endif %}
+<script src="/assets/js/site.js" defer></script>
+{%- for ld in schema %}
+<script type="application/ld+json">{{ ld | dump | safe }}</script>
+{%- endfor %}
 </head>
 <body>
+<a class="skip" href="#app">Skip to the content</a>
+<div class="rail"><i id="rail"></i></div>
+
+{% include "partials/nav.html" %}
+
+<main id="app">
 {{ content | safe }}
-<script src="/assets/js/site.js"></script>
+</main>
+
+{% include "partials/footer.html" %}
+
+<div class="dock"><a class="btn btn--solid" href="/contact/">Book a 20 minute call</a></div>
 </body>
 </html>
